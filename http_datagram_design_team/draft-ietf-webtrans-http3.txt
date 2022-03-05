@@ -5,10 +5,10 @@
 Network Working Group                                        A. Frindell
 Internet-Draft                                                  Facebook
 Intended status: Standards Track                              E. Kinnear
-Expires: 29 April 2022                                        Apple Inc.
+Expires: 6 September 2022                                     Apple Inc.
                                                              V. Vasiliev
                                                                   Google
-                                                         26 October 2021
+                                                            5 March 2022
 
 
                         WebTransport over HTTP/3
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 April 2022.
+   This Internet-Draft will expire on 6 September 2022.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -61,9 +61,9 @@ Copyright Notice
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
-   extracted from this document must include Simplified BSD License text
-   as described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Simplified BSD License.
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -90,7 +90,6 @@ Table of Contents
      8.3.  Frame Type Registration
      8.4.  Stream Type Registration
      8.5.  HTTP/3 Error Code Registration
-     8.6.  Datagram Format Type
    9.  References
      9.1.  Normative References
      9.2.  Informative References
@@ -357,13 +356,9 @@ Table of Contents
 
 4.4.  Datagrams
 
-   Datagrams can be sent using HTTP Datagrams, using the WEB_TRANSPORT
-   HTTP Datagram Format Type (see value in Section 8.6).  When using the
-   WEB_TRANSPORT HTTP Datagram Format Type, the WebTransport datagram
-   payload is sent unmodified in the "HTTP Datagram Payload" field of an
-   HTTP Datagram.  When sending a registration capsule using the
-   "Datagram Format Type" set to WEB_TRANSPORT, the "Datagram Format
-   Additional Data" field SHALL be empty.
+   Datagrams can be sent using HTTP Datagrams.  The WebTransport
+   datagram payload is sent unmodified in the "HTTP Datagram Payload"
+   field of an HTTP Datagram.
 
    In QUIC, a datagram frame can span at most one packet.  Because of
    that, the applications have to know the maximum size of the datagram
@@ -581,19 +576,6 @@ Table of Contents
 
    Specification:  This document.
 
-8.6.  Datagram Format Type
-
-   This document will request IANA to register WEB_TRANSPORT in the
-   "HTTP Datagram Format Types" registry established by [HTTP-DATAGRAM].
-
-               +===============+==========+===============+
-               | Type          | Value    | Specification |
-               +===============+==========+===============+
-               | WEB_TRANSPORT | 0xff7c00 | This Document |
-               +---------------+----------+---------------+
-
-                 Table 1: Registered Datagram Format Type
-
 9.  References
 
 9.1.  Normative References
@@ -601,9 +583,9 @@ Table of Contents
    [HTTP-DATAGRAM]
               Schinazi, D. and L. Pardue, "Using Datagrams with HTTP",
               Work in Progress, Internet-Draft, draft-ietf-masque-h3-
-              datagram-05, 25 October 2021,
+              datagram-06, 4 March 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              h3-datagram-05>.
+              h3-datagram-06>.
 
    [HTTP3]    Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
@@ -618,43 +600,43 @@ Table of Contents
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://datatracker.ietf.org/doc/html/rfc2119>.
+              <https://www.rfc-editor.org/rfc/rfc2119>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://datatracker.ietf.org/doc/html/rfc3986>.
+              <https://www.rfc-editor.org/rfc/rfc3986>.
 
    [RFC6454]  Barth, A., "The Web Origin Concept", RFC 6454,
               DOI 10.17487/RFC6454, December 2011,
-              <https://datatracker.ietf.org/doc/html/rfc6454>.
+              <https://www.rfc-editor.org/rfc/rfc6454>.
 
    [RFC6585]  Nottingham, M. and R. Fielding, "Additional HTTP Status
               Codes", RFC 6585, DOI 10.17487/RFC6585, April 2012,
-              <https://datatracker.ietf.org/doc/html/rfc6585>.
+              <https://www.rfc-editor.org/rfc/rfc6585>.
 
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Message Syntax and Routing",
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
-              <https://datatracker.ietf.org/doc/html/rfc7230>.
+              <https://www.rfc-editor.org/rfc/rfc7230>.
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
               DOI 10.17487/RFC7231, June 2014,
-              <https://datatracker.ietf.org/doc/html/rfc7231>.
+              <https://www.rfc-editor.org/rfc/rfc7231>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
    [RFC8441]  McManus, P., "Bootstrapping WebSockets with HTTP/2",
               RFC 8441, DOI 10.17487/RFC8441, September 2018,
-              <https://datatracker.ietf.org/doc/html/rfc8441>.
+              <https://www.rfc-editor.org/rfc/rfc8441>.
 
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
-              <https://datatracker.ietf.org/doc/html/rfc9000>.
+              <https://www.rfc-editor.org/rfc/rfc9000>.
 
    [SEMANTICS]
               Fielding, R. T., Nottingham, M., and J. Reschke, "HTTP
@@ -677,17 +659,14 @@ Authors' Addresses
 
    Alan Frindell
    Facebook
-
    Email: afrind@fb.com
 
 
    Eric Kinnear
    Apple Inc.
-
    Email: ekinnear@apple.com
 
 
    Victor Vasiliev
    Google
-
    Email: vasilvv@google.com
