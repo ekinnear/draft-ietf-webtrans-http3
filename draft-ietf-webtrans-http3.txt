@@ -5,10 +5,10 @@
 Network Working Group                                        A. Frindell
 Internet-Draft                                                  Facebook
 Intended status: Standards Track                              E. Kinnear
-Expires: 6 September 2022                                     Apple Inc.
+Expires: 18 September 2022                                    Apple Inc.
                                                              V. Vasiliev
                                                                   Google
-                                                            5 March 2022
+                                                           17 March 2022
 
 
                         WebTransport over HTTP/3
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 September 2022.
+   This Internet-Draft will expire on 18 September 2022.
 
 Copyright Notice
 
@@ -360,12 +360,6 @@ Table of Contents
    datagram payload is sent unmodified in the "HTTP Datagram Payload"
    field of an HTTP Datagram.
 
-   In QUIC, a datagram frame can span at most one packet.  Because of
-   that, the applications have to know the maximum size of the datagram
-   they can send.  However, when proxying the datagrams, the hop-by-hop
-   MTUs can vary.  TODO: Describe how the path MTU can be computed,
-   specifically propagation across HTTP proxies.
-
 4.5.  Buffering Incoming Streams and Datagrams
 
    In WebTransport over HTTP/3, the client MAY send its SETTINGS frame,
@@ -651,9 +645,9 @@ Table of Contents
               Frindell, A., Kinnear, E., Pauly, T., Thomson, M.,
               Vasiliev, V., and G. Xie, "WebTransport using HTTP/2",
               Work in Progress, Internet-Draft, draft-ietf-webtrans-
-              http2-02, 25 October 2021,
+              http2-03, 7 March 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http2-02>.
+              webtrans-http2-03>.
 
 Authors' Addresses
 
