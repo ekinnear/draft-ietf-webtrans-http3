@@ -5,10 +5,10 @@
 Network Working Group                                        A. Frindell
 Internet-Draft                                                  Facebook
 Intended status: Standards Track                              E. Kinnear
-Expires: 18 September 2022                                    Apple Inc.
+Expires: 22 September 2022                                    Apple Inc.
                                                              V. Vasiliev
                                                                   Google
-                                                           17 March 2022
+                                                           21 March 2022
 
 
                         WebTransport over HTTP/3
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 September 2022.
+   This Internet-Draft will expire on 22 September 2022.
 
 Copyright Notice
 
@@ -462,10 +462,10 @@ Table of Contents
    client is potentially untrusted.
 
    WebTransport over HTTP/3 requires explicit opt-in through the use of
-   a QUIC transport parameter; this avoids potential protocol confusion
-   attacks by ensuring the HTTP/3 server explicitly supports it.  It
-   also requires the use of the Origin header, providing the server with
-   the ability to deny access to Web-based clients that do not originate
+   an HTTP/3 setting; this avoids potential protocol confusion attacks
+   by ensuring the HTTP/3 server explicitly supports it.  It also
+   requires the use of the Origin header, providing the server with the
+   ability to deny access to Web-based clients that do not originate
    from a trusted origin.
 
    Just like HTTP traffic going over HTTP/3, WebTransport pools traffic
