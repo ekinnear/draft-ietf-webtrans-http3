@@ -606,22 +606,32 @@ flow control.  This prevents an application from consuming excessive resources
 on a single session and starving traffic for other sessions
 (see {{security-considerations}}).
 
-An endpoint indicates that it is willing to support more than one WebTransport
-session, and thus flow control, by sending the SETTINGS_WT_MAX_SESSIONS with a
-value greater than "1".  If either endpoint sends SETTINGS_WT_MAX_SESSIONS with
-a value of "1", flow control is not enabled, and clients MUST NOT attempt to
-establish more than one simultaneous WebTransport session.  A server that
-receives more than one session on an underlying transport connection when flow
-control is not enabled MUST reset the excessive CONNECT streams with a
-`H3_REQUEST_REJECTED` status (see {{flow-control-limit-sessions}}).
+Flow control is enabled when both endpoints declare their intent to use flow
+control, even if SETTINGS_WT_MAX_SESSIONS is sent with a value of "1".
+Endpoints declare their intent to use flow control by taking any of the
+following actions:
 
-If both endpoints send SETTINGS_WT_MAX_SESSIONS with a value greater than "1",
-flow control is enabled, and the limits described in the entirety of
-{{flow-control}} apply.
+- Sending SETTINGS_WT_MAX_SESSIONS with a value greater than "1".
+- Sending SETTINGS_WT_INITIAL_MAX_STREAMS_UNI with any value other than "0".
+- Sending SETTINGS_WT_INITIAL_MAX_STREAMS_BIDI with any value other than "0".
+- Sending SETTINGS_WT_INITIAL_MAX_DATA with any value other than "0".
 
-If flow control is not enabled, an endpoint MUST ignore receipt of any flow
-control capsules (see {{flow-control-capsules}}), since the peer might not have
-received SETTINGS at the time they were sent or packets might have been
+If both endpoints take at least one of these actions, flow control is enabled,
+and the limits described in the entirety of {{flow-control}} apply.
+
+The inclusion of the flow control SETTINGS in these criteria allows endpoints to
+agree to explicitly enable flow control, even if only a single WebTransport
+session is supported.
+
+If flow control is not enabled, clients MUST NOT attempt to establish more than
+one simultaneous WebTransport session.  A server that receives more than one
+session on an underlying transport connection when flow control is not enabled
+MUST reset the excessive CONNECT streams with a `H3_REQUEST_REJECTED` status
+(see {{flow-control-limit-sessions}}).
+
+Also, if flow control is not enabled, an endpoint MUST ignore receipt of any
+flow control capsules (see {{flow-control-capsules}}), since the peer might not
+have received SETTINGS at the time they were sent or packets might have been
 reordered.
 
 ## Limiting the Number of Simultaneous Sessions {#flow-control-limit-sessions}
