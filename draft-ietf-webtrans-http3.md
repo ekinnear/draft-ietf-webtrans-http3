@@ -372,6 +372,28 @@ If at any point a session ID is received that cannot be a valid ID for a
 client-initiated bidirectional stream, the recipient MUST close the connection
 with an H3_ID_ERROR error code.
 
+## Transport Properties
+
+The WebTransport framework {{OVERVIEW}} defines a set of optional transport
+properties that clients can use to determine the presence of features which
+might allow additional optimizations beyond the common set of properties
+available via all WebTransport protocols.
+
+Below are details about support in WebTransport over HTTP/3 for the properties
+defined by the WebTransport framework.
+
+Unreliable Delivery:
+
+: WebTransport over HTTP/3 supports unreliable delivery.  Resetting a stream
+results in lost stream data no longer being retransmitted.  WebTransport over
+HTTP/3 also supports datagrams, which are not retransmitted.
+
+Pooling:
+
+: WebTransport over HTTP/3 provides optional support for pooling.  Endpoints can
+use the SETTINGS_WT_MAX_SESSIONS setting to indicate if pooling is supported on
+a particular HTTP/3 connection ({{establishing}}).
+
 ## Unidirectional streams {#unidirectional-streams}
 
 WebTransport endpoints can initiate unidirectional streams.  The HTTP/3
