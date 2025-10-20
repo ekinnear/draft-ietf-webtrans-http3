@@ -774,6 +774,13 @@ stream limit of 3 is permitted to open streams 3, 7, and 11, but not stream
 Note that this limit includes streams that have been closed as well as those
 that are open.
 
+Unlike in QUIC, where MAX_STREAMS frames can be delivered in any order,
+WT_MAX_STREAMS capsules are sent on the WebTransport session's connect stream
+and are delivered in order.  If an endpoint receives a WT_MAX_STREAMS capsule
+with a Maximum Streams value less than a previously received value, it MUST
+close the WebTransport session by resetting the connect stream with the
+WT_FLOW_CONTROL_ERROR error code.
+
 The WT_MAX_STREAMS capsule defines special intermediary handling, as described
 in {{Section 3.2 of HTTP-DATAGRAM}}.  Intermediaries MUST consume
 WT_MAX_STREAMS capsules for flow control purposes and MUST generate and send
@@ -852,6 +859,13 @@ WT_MAX_DATA capsules contain the following field:
 All data sent in WT_STREAM capsules counts toward this limit. The sum of the
 lengths of Stream Data fields in WT_STREAM capsules MUST NOT exceed the value
 advertised by a receiver.
+
+Unlike in QUIC, where MAX_DATA frames can be delivered in any order, WT_MAX_DATA
+capsules are sent on the WebTransport session's connect stream and are delivered
+in order.  If an endpoint receives a WT_MAX_DATA capsule with a Maximum Data
+value less than a previously received value, it MUST close the WebTransport
+session by resetting the connect stream with the WT_FLOW_CONTROL_ERROR error
+code.
 
 The WT_MAX_DATA capsule defines special intermediary handling, as described in
 {{Section 3.2 of HTTP-DATAGRAM}}.  Intermediaries MUST consume WT_MAX_DATA
@@ -1193,8 +1207,8 @@ Sender:
 
 ## HTTP/3 Error Code Registration
 
-The following entry is added to the "HTTP/3 Error Code" registry established by
-[HTTP3]:
+The following entries are added to the "HTTP/3 Error Code" registry established
+by [HTTP3]:
 
 Name:
 
@@ -1225,6 +1239,22 @@ Description:
 : WebTransport data stream aborted because the associated WebTransport session
   has been closed.  Also used to indicate that the endpoint is no longer
   reading from the CONNECT stream.
+
+Specification:
+
+: This document.
+
+Name:
+
+: WT_FLOW_CONTROL_ERROR
+
+Value:
+
+: 0x045d4487
+
+Description:
+
+: WebTransport session aborted because a flow control error was encountered.
 
 Specification:
 
