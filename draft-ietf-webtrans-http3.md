@@ -238,7 +238,7 @@ Clients supporting WebTransport over HTTP/3 send:
 - An empty reset_stream_at transport parameter
 
 Servers should note that CONNECT requests to establish new WebTransport
-sessions, in addition to other messages, may arrive before the client's SETTINGS
+sessions, in addition to other messages, can arrive before the client's SETTINGS
 are received (see {{buffering-incoming}}).  If the server receives SETTINGS that
 do not have correct values for every required setting, or transport parameters
 that do not have correct values for every required transport parameter, the
@@ -253,7 +253,7 @@ parameters do not have correct values for every required transport parameter.
 
 For draft versions of WebTransport only, the server MUST NOT process any
 incoming WebTransport requests until the client settings have been received, as
-the client may be using a version of the WebTransport extension that is
+the client might be using a version of the WebTransport extension that is
 different from the one used by the server.
 
 ## Creating a New Session
