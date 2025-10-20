@@ -230,9 +230,11 @@ support, both the client and the server MUST send a max_datagram_frame_size
 transport parameter with a value greater than 0 (see {{Section 3
 of !QUIC-DATAGRAM=RFC9221}}).
 
-Any WebTransport requests sent by the client without enabling QUIC and HTTP
-datagrams MUST be treated as malformed by the server, as described in
-{{Section 4.1.2 of HTTP3}}.
+Because the server may receive and accept an extended CONNECT request prior to
+receipt of the client's SETTINGS, if SETTINGS arrive that do not enable HTTP
+datagrams, or if QUIC datagrams are not enabled, the server MUST treat all
+established and newly incoming WebTransport sessions as malformed, as described
+in {{Section 4.1.2 of HTTP3}}.
 
 WebTransport over HTTP/3 relies on the RESET_STREAM_AT frame defined in
 {{!RESET-STREAM-AT=I-D.ietf-quic-reliable-stream-reset}}.  To indicate support,
