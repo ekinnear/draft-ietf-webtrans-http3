@@ -432,7 +432,7 @@ frame type on HTTP/3 streams other than the very first bytes of a request
 stream.  Receiving this frame type in any other circumstances MUST be treated
 as a connection error of type H3_FRAME_ERROR.
 
-## Resetting Data Streams
+## Resetting Data Streams {#resetting-data-streams}
 
 A WebTransport endpoint may send a RESET_STREAM or a STOP_SENDING frame for a
 WebTransport data stream.  Those signals are propagated by the WebTransport
@@ -931,6 +931,12 @@ Application Error Message:
 : A UTF-8 encoded error message string provided by the application closing the
   session.  The message takes up the remainder of the capsule, and its
   length MUST NOT exceed 1024 bytes.
+
+Note that the Application Error Code and Application Error Message fields do not
+mirror the Error Code and Reason Phrase fields in QUIC's CONNECTION_CLOSE frame
+({{Section 19.19 of !RFC9000}}) because WebTransport application errors use a
+subset of the HTTP/3 Error Code space and need to fit within those bounds, see
+{{resetting-data-streams}}.
 
 An endpoint that sends a WT_CLOSE_SESSION capsule MUST immediately send a FIN on
 the CONNECT Stream.  The endpoint MAY also send a STOP_SENDING with error code
