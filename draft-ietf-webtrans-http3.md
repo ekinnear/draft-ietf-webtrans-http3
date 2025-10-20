@@ -932,11 +932,10 @@ Application Error Message:
   session.  The message takes up the remainder of the capsule, and its
   length MUST NOT exceed 1024 bytes.
 
-Note that the Application Error Code and Application Error Message fields do not
-mirror the Error Code and Reason Phrase fields in QUIC's CONNECTION_CLOSE frame
-({{Section 19.19 of !RFC9000}}) because WebTransport application errors use a
-subset of the HTTP/3 Error Code space and need to fit within those bounds, see
-{{resetting-data-streams}}.
+Note that the Application Error Code field does not mirror the Error Code field
+in QUIC's CONNECTION_CLOSE frame ({{Section 19.19 of !RFC9000}}) because
+WebTransport application errors use a subset of the HTTP/3 Error Code space and
+need to fit within those bounds, see {{resetting-data-streams}}.
 
 An endpoint that sends a WT_CLOSE_SESSION capsule MUST immediately send a FIN on
 the CONNECT Stream.  The endpoint MAY also send a STOP_SENDING with error code
