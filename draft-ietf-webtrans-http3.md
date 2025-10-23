@@ -824,15 +824,14 @@ Note that this limit includes streams that have been closed as well as those
 that are open.
 
 If an endpoint receives an incoming stream for a session that would exceed the
-advertised Maximum Streams value, it MUST close the session with a
+advertised Maximum Streams value, it MUST close the WebTransport session with a
 WT_FLOW_CONTROL_ERROR error code.
 
 Unlike in QUIC, where MAX_STREAMS frames can be delivered in any order,
 WT_MAX_STREAMS capsules are sent on the WebTransport session's connect stream
 and are delivered in order.  If an endpoint receives a WT_MAX_STREAMS capsule
 with a Maximum Streams value less than a previously received value, it MUST
-close the WebTransport session by resetting the connect stream with the
-WT_FLOW_CONTROL_ERROR error code.
+close the WebTransport session with a WT_FLOW_CONTROL_ERROR error code.
 
 The WT_MAX_STREAMS capsule defines special intermediary handling, as described
 in {{Section 3.2 of HTTP-DATAGRAM}}.  Intermediaries MUST consume
@@ -913,14 +912,14 @@ The sum of the lengths of Stream Body data sent on all streams associated with
 this session MUST NOT exceed the Maximum Data value advertised by a receiver.
 Note that capsules sent on the CONNECT stream, and the Signal Value, Stream
 Type, and Session ID fields, are not included in this limit.  If an endpoint
-receives Stream Body data in excess of this limit, it MUST close the session
-with a WT_FLOW_CONTROL_ERROR error code.
+receives Stream Body data in excess of this limit, it MUST close the
+WebTransport session with a WT_FLOW_CONTROL_ERROR error code.
 
 Unlike in QUIC, where MAX_DATA frames can be delivered in any order, WT_MAX_DATA
 capsules are sent on the WebTransport session's connect stream and are delivered
 in order.  If an endpoint receives a WT_MAX_DATA capsule with a Maximum Data
 value less than a previously received value, it MUST close the WebTransport
-session with the WT_FLOW_CONTROL_ERROR error code.
+session with a WT_FLOW_CONTROL_ERROR error code.
 
 The WT_MAX_DATA capsule defines special intermediary handling, as described in
 {{Section 3.2 of HTTP-DATAGRAM}}.  Intermediaries MUST consume WT_MAX_DATA
