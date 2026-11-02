@@ -275,11 +275,12 @@ identify the client's supported version; see {{negotiating-draft-version}}.
 
 Servers should note that CONNECT requests to establish new WebTransport
 sessions, in addition to other messages, can arrive before the client's SETTINGS
-are received (see {{buffering-incoming}}).  If the server receives SETTINGS that
-do not have correct values for every required setting, or transport parameters
-that do not have correct values for every required transport parameter, the
-server MUST treat all established and newly incoming WebTransport sessions as
-malformed, as described in {{Section 4.1.2 of HTTP3}}.
+are received (see {{buffering-incoming}} and {{flow-control-negotiate}}).  If
+the server receives SETTINGS that do not have correct values for every required
+setting, or transport parameters that do not have correct values for every
+required transport parameter, the server MUST treat all established and newly
+incoming WebTransport sessions as malformed, as described in
+{{Section 4.1.2 of HTTP3}}.
 
 A client MUST NOT establish WebTransport sessions if the server's SETTINGS do
 not have correct values for every required setting or if the server's transport
@@ -748,6 +749,25 @@ Also, if flow control is not enabled, an endpoint MUST ignore receipt of any
 flow control capsules (see {{flow-control-capsules}}), since the peer might not
 have received SETTINGS at the time they were sent or packets might have been
 reordered.
+
+A server can receive CONNECT requests, and flow control capsules sent on their
+streams, before it receives the client's SETTINGS (see {{establishing}}).  Until
+the client's SETTINGS arrive, a server that has declared its intent to use flow
+control MUST treat flow control as enabled, with each of the client's initial
+limits at its default value of "0".  During that time, the server:
+
+- uses the largest value received in a flow control capsule from the client for
+  each limit,
+- MUST NOT close a session with a WT_FLOW_CONTROL_ERROR, and
+- MUST NOT accept any session beyond the first.
+
+When the client's SETTINGS arrive and flow control is enabled, each limit is the
+greater of the client's initial value and the largest value received in a flow
+control capsule, so an initial value that arrives after a capsule never reduces
+a limit.  If the client has already exceeded a limit set by the server, the
+server MUST close the session with a WT_FLOW_CONTROL_ERROR.  If flow control is
+not enabled, the server stops applying the limits described in {{flow-control}}
+and handles any additional sessions as described above.
 
 ## Limiting the Number of Simultaneous Sessions {#flow-control-limit-sessions}
 
